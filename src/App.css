@@ -1,0 +1,267 @@
+/* src/App.css */
+
+:root {
+  --bg-dark: #0f0f1a;
+  --card-bg: #1a1a2e;
+  --accent-neon: #00f2ff;
+  --text-main: #e0e0e0;
+}
+
+/* --- Base Layout --- */
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  padding: 2rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 242, 255, 0.3);
+}
+
+.app-header h1 {
+  margin: 0;
+  letter-spacing: 4px;
+  color: var(--accent-neon);
+  text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* --- Story Card (Game View) --- */
+.story-card {
+  max-width: 800px;
+  width: 100%;
+  background: var(--card-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 242, 255, 0.1);
+  animation: slideIn 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scene-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--accent-neon);
+}
+
+.content-container {
+  padding: 2.5rem;
+}
+
+.story-text {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  color: #fff;
+}
+
+/* --- Choice Buttons --- */
+.choice-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.choice-btn {
+  background: rgba(0, 242, 255, 0.05);
+  border: 1px solid var(--accent-neon);
+  color: var(--accent-neon);
+  padding: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+}
+
+.choice-btn:hover {
+  background: var(--accent-neon);
+  color: var(--bg-dark);
+  box-shadow: 0 0 20px var(--accent-neon);
+  transform: scale(1.02);
+}
+
+/* --- Story Picker Grid (Menu) --- */
+.story-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.story-option {
+  background: var(--card-bg);
+  padding: 0; /* Changed to 0 so image hits the edges */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Clips the image zoom effect */
+}
+
+.story-option:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
+  border-color: var(--accent-neon);
+}
+
+.story-thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--accent-neon);
+  transition: transform 0.5s ease;
+}
+
+.story-option:hover .story-thumbnail {
+  transform: scale(1.1);
+}
+
+.option-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.story-option h2 {
+  color: var(--accent-neon);
+  margin: 0 0 10px 0;
+  font-size: 1.5rem;
+}
+
+/* --- Shared Polished Button Style --- */
+.select-story-btn, .reset-timeline-btn {
+  position: relative;
+  background: #000;
+  border: 1px solid var(--accent-neon);
+  color: var(--accent-neon);
+  padding: 14px 32px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border-radius: 2px;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.select-story-btn:hover, .reset-timeline-btn:hover {
+  background: var(--accent-neon);
+  color: #000;
+  box-shadow: 0 0 30px var(--accent-neon);
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.select-story-btn:hover .btn-glow, 
+.reset-timeline-btn:hover .btn-glow {
+  left: 100%;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Footer & Controls --- */
+.app-footer {
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.action-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.back-menu-btn {
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.back-menu-btn:hover {
+  color: var(--accent-neon);
+}
+
+.instruction-hint {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .choice-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-group {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .scene-img {
+    height: 250px;
+  }
+  
+  .story-thumbnail {
+    height: 150px;
+  }
+}
